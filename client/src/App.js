@@ -154,9 +154,9 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
-        <h1>Gestión de docentes universitarios</h1>
+        <h1>Gestión de pacientes SaludYa</h1>
         <p className="app-subtitle">
-          Registro de profesores: datos académicos y de contacto
+          Registro de pacientes: datos medicos y de contacto
         </p>
       </header>
 
@@ -176,7 +176,7 @@ function App() {
           />
         </label>
         <label>
-          Correo institucional:
+          Correo electrónico:
           <input
             type="email"
             value={correo}
@@ -194,7 +194,7 @@ function App() {
           />
         </label>
         <label>
-          Título académico máximo:
+          Cedula Iden:tificacion:
           <input
             type="text"
             value={titulo}
@@ -203,7 +203,7 @@ function App() {
           />
         </label>
         <label>
-          Área o programa académico:
+          Especialidad:
           <input
             type="text"
             value={areaAcademica}
@@ -221,7 +221,7 @@ function App() {
           />
         </label>
         <label>
-          Años de experiencia docente:
+          Paciente:
           <input
             type="number"
             min={0}
