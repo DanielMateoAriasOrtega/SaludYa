@@ -12,68 +12,68 @@ app.use(cors());
 
 app.use(express.json());
 
-//RUTA 1 OBTENER LA LISTA DE PACIENTES
-app.get("/pacientes", (req, res) => {
-  const sql = "SELECT * FROM pacientes";
+//RUTA 1 OBTENER LA LISTA DE DOCENTES
+app.get("/docentes", (req, res) => {
+  const sql = "SELECT * FROM docentes";
   db.query(sql, (err, results) => {
     if (err) {
       //500 error interno de servidor, fallo la bd
-      return res.status(500).json({ error: "error al obtener los pacientes" });
+      return res.status(500).json({ error: "error al obtener los docentes" });
     }
     res.json(results);
   });
 });
 
-//RUTA 2 OBTENER UN PACIENTE POR ID
-app.get("/pacientes/:id", (req, res) => {
+//RUTA 2 OBTENER UN DOCENTE POR ID
+app.get("/docentes/:id", (req, res) => {
   const { id } = req.params;
-  const sql = "SELECT * FROM pacientes WHERE id = ?";
+  const sql = "SELECT * FROM docentes WHERE id = ?";
   db.query(sql, [id], (err, results) => {
     if (err) {
       //500 error interno de servidor, fallo la bd
-      return res.status(500).json({ error: "error al obtener al paciente" });
+      return res.status(500).json({ error: "error al obtener al docente" });
     }
     res.json(results);
 
     if (!results.length) {
       //404 no encontrado
-      return res.status(404).json({ error: "paciente no encontrado" });
+      return res.status(404).json({ error: "docente no encontrado" });
     }
     res.json(results[0]);
   });
 });
 
-//RUTA 3 GUARDAR UN PACIENNTE
+//RUTA 3 GUARDAR UN DOCENTE
 
-app.post("/PACIENTES", (req, res) => {
+app.post("/docentes", (req, res) => {
   const {
     nombre,
     correo,
     telefono,
     titulo,
-    especialidad_medicarequerida,
-    identificacion,
-    antecedentes_medicos,
+    area_academica,
+    dedicacion,
+    anios_experiencia,
   } = req.body;
   if (
     !nombre?.trim() ||
     !correo?.trim() ||
     !telefono?.trim() ||
     !titulo?.trim() ||
-    !dimetu_edad?.trim() ||
-    !identificacion?.trim()
+    !area_academica?.trim() ||
+    !dedicacion?.trim()
   ) {
     return res.status(400).json({ error: "todos los campos son requeridos" });
   }
-  const anios = Number(dimetu_edad);
+  const anios = Number(anios_experiencia);
 
   if (Number.isNaN(anios) || anios < 0) {
     return res
       .status(400)
-      .json({ error: "edad invalida" });
+      .json({ error: "anios de experiencia del docente invalidos" });
   }
   const sql =
-    "INSERT INTO pacientes(nombre, correo, telefono, titulo, dimetu_edad, identificacion, dimetu_edad) VALUES (?,?,?,?,?,?,?)";
+    "INSERT INTO docentes(nombre, correo, telefono, titulo, area_academica, dedicacion, anios_experiencia) VALUES (?,?,?,?,?,?,?)";
 
   db.query(
     sql,
@@ -82,14 +82,14 @@ app.post("/PACIENTES", (req, res) => {
       correo.trim(),
       telefono.trim(),
       titulo.trim(),
-      dimetu_edad.trim(),
-      identificacion.trim(),
+      area_academica.trim(),
+      dedicacion.trim(),
       anios,
     ],
     (err, result) => {
       if (err) {
         //500 error interno de servidor, fallo la bd
-        return res.status(500).json({ error: "error al guardar al paciente" });
+        return res.status(500).json({ error: "error al guardar al docente" });
       }
       res.json({
         id: result.insertId,
@@ -97,16 +97,16 @@ app.post("/PACIENTES", (req, res) => {
         correo: correo.trim(),
         telefono: telefono.trim(),
         titulo: titulo.trim(),
-        dimetu_edad: dimetu_edad.trim(),
-        identificacion: identificacion.trim(),
+        area_academica: area_academica.trim(),
+        decicacion: dedicacion.trim(),
         anios_experiencia: anios,
       });
     },
   );
 });
 
-//RUTA 4 ACTUALIZAR UN PACIENTE
-app.put("/PACIENTE/:id", (req, res) => {
+//RUTA 4 ACTUALIZAR UN DOCENTE
+app.put("/docentes/:id", (req, res) => {
   const { id } = req.params;
 
   const {
@@ -114,9 +114,9 @@ app.put("/PACIENTE/:id", (req, res) => {
     correo,
     telefono,
     titulo,
-    especialidad_medicarequerida,
-    identificacion,
-    dimetu_edad,
+    area_academica,
+    dedicacion,
+    anios_experiencia,
   } = req.body;
 
   if (
@@ -124,22 +124,22 @@ app.put("/PACIENTE/:id", (req, res) => {
     !correo?.trim() ||
     !telefono?.trim() ||
     !titulo?.trim() ||
-    !especialidad_medicarequerida?.trim() ||
-    !identificacion?.trim()
+    !area_academica?.trim() ||
+    !dedicacion?.trim()
   ) {
     return res.status(400).json({ error: "todos los campos son requeridos" });
   }
 
-  const anios = Number(dimetu_edad);
+  const anios = Number(anios_experiencia);
 
   if (Number.isNaN(anios) || anios < 0) {
     return res
       .status(400)
-      .json({ error: "anios de experiencia del paciente invalidos" });
+      .json({ error: "anios de experiencia del docente invalidos" });
   }
 
   const sql =
-    "UPDATE docentes SET  nombre=?, correo=?, telefono=?, titulo=?, especialidad_medicarequerida=?, identificacion=?, anios_experiencia=? WHERE id = ?";
+    "UPDATE docentes SET  nombre=?, correo=?, telefono=?, titulo=?, area_academica=?, dedicacion=?, anios_experiencia=? WHERE id = ?";
 
   db.query(
     sql,
@@ -148,8 +148,8 @@ app.put("/PACIENTE/:id", (req, res) => {
       correo.trim(),
       telefono.trim(),
       titulo.trim(),
-      especialidad_medicarequerida.trim(),
-      identificacion.trim(),
+      area_academica.trim(),
+      dedicacion.trim(),
       anios,
       id,
     ],
@@ -158,38 +158,28 @@ app.put("/PACIENTE/:id", (req, res) => {
         //500 error interno de servidor, fallo la bd
         return res
           .status(500)
-          .json({ error: "error al actualizar al paciente" });
+          .json({ error: "error al actualizar al docente" });
       }
-      res.json({ message: "paciente actualizado correctamente" });
+      res.json({ message: "docente actualizado correctamente" });
     },
   );
 });
 
-//RUTA 5 ELIMINAR PACIENTE
-app.delete("/paciente/:id", (req, res) => {
+//RUTA 5 ELIMINAR DOCENTE
+app.delete("/docentes/:id", (req, res) => {
   const { id } = req.params;
 
-  const sql = "DELETE FROM pacientes WHERE id = ?";
+  const sql = "DELETE FROM docentes WHERE id = ?";
 
   db.query(sql, [id], (err) => {
     if (err) {
       //500 error interno de servidor, fallo la bd
-      return res.status(500).json({ error: "error al eliminar al paciente" });
+      return res.status(500).json({ error: "error al eliminar al docente" });
     }
-    res.json({ message: "paciente eliminado correctamente" });
+    res.json({ message: "docente eliminado correctamente" });
   });
 });
 
-const startServer = async () => {
-  try {
-    await db.waitForReady();
-    app.listen(3001, () => {
-      console.log("servidor backend corriendo desde el puerto 3001");
-    });
-  } catch (err) {
-    console.error("No se puede iniciar el servidor:", err.message);
-    process.exit(1);
-  }
-};
-
-startServer();
+app.listen(3001, () => {
+  console.log("servidor backend corriendo desde el puerto 3001");
+});
