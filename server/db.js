@@ -23,7 +23,7 @@ pool.getConnection((err, connection) => {
   if (err) {
     if (err.code === "ER_BAD_DB_ERROR") {
       console.error(
-        `Error al conectar la bd: la base de datos "${database}" no existe.`
+        `Error al conectar la bd: la base de datos "${database}" no existe.`,
       );
     } else {
       console.error("Error al conectar la bd", err);
