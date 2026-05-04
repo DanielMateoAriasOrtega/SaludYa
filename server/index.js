@@ -180,6 +180,16 @@ app.delete("/paciente/:id", (req, res) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("servidor backend corriendo desde el puerto 3001");
-});
+const startServer = async () => {
+  try {
+    await db.waitForReady();
+    app.listen(3001, () => {
+      console.log("servidor backend corriendo desde el puerto 3001");
+    });
+  } catch (err) {
+    console.error("No se puede iniciar el servidor:", err.message);
+    process.exit(1);
+  }
+};
+
+startServer();

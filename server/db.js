@@ -20,6 +20,7 @@ const poolConfig = {
 };
 
 let pool;
+let isReady = false;
 
 const createDatabaseIfNeeded = () => {
   return new Promise((resolve, reject) => {
@@ -39,11 +40,12 @@ const createDatabaseIfNeeded = () => {
       initConnection.query(
         `CREATE DATABASE IF NOT EXISTS \`${database}\` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci`,
         (err) => {
-          initConnection.end();
           if (err) {
+            initConnection.end();
             reject(err);
             return;
           }
+          initConnection.end();
           resolve();
         },
       );
@@ -76,57 +78,83 @@ const createTableIfNeeded = () => {
 };
 
 const initPool = async () => {
-  pool = mysql.createPool(poolConfig);
+  return new Promise((resolve, reject) => {
+    pool = mysql.createPool(poolConfig);
 
-  pool.getConnection((err, connection) => {
-    if (err) {
-      console.error("Error al conectar la bd", err);
-      return;
-    }
+    pool.getConnection((err, connection) => {
+      if (err) {
+        reject(err);
+        return;
+      }
 
-    console.log("Conexión exitosa a MySQL");
-    connection.release();
+      console.log("Conexión exitosa a MySQL");
+      connection.release();
+      isReady = true;
+      resolve();
+    });
   });
-
-  await createTableIfNeeded();
 };
 
 const initializeDatabase = async () => {
   try {
+    console.log("Creando base de datos si no existe...");
     await createDatabaseIfNeeded();
+    console.log("Base de datos lista");
+
+    console.log("Inicializando pool de conexiones...");
     await initPool();
+
+    console.log("Creando tabla si no existe...");
+    await createTableIfNeeded();
+    console.log("Tabla de pacientes lista");
   } catch (err) {
-    console.error("Error al inicializar la base de datos", err);
+    console.error("Error al inicializar la base de datos:", err.message);
     process.exit(1);
   }
 };
 
-initializeDatabase();
-
 const query = (...args) => {
-  if (!pool) {
-    throw new Error("Pool MySQL no está inicializado aún");
+  if (!isReady || !pool) {
+    const err = new Error("Base de datos no está lista aún");
+    if (args[args.length - 1] instanceof Function) {
+      return args[args.length - 1](err);
+    }
+    throw err;
   }
   return pool.query(...args);
 };
 
 const execute = (...args) => {
-  if (!pool) {
-    throw new Error("Pool MySQL no está inicializado aún");
+  if (!isReady || !pool) {
+    const err = new Error("Base de datos no está lista aún");
+    if (args[args.length - 1] instanceof Function) {
+      return args[args.length - 1](err);
+    }
+    throw err;
   }
   return pool.execute(...args);
 };
 
 const getConnection = (cb) => {
-  if (!pool) {
-    cb(new Error("Pool MySQL no está inicializado aún"));
+  if (!isReady || !pool) {
+    cb(new Error("Base de datos no está lista aún"));
     return;
   }
   return pool.getConnection(cb);
+};
+
+const waitForReady = () => {
+  return initializeDatabase();
+};
+
+const isDBReady = () => {
+  return isReady;
 };
 
 module.exports = {
   query,
   execute,
   getConnection,
+  waitForReady,
+  isDBReady,
 };
