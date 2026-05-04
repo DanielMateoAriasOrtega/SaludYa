@@ -2,20 +2,37 @@ require("dotenv").config();
 
 const mysql = require("mysql2");
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "docentes_db",
+const host = process.env.DB_HOST?.trim() || "localhost";
+const user = process.env.DB_USER?.trim() || "root";
+const password = process.env.DB_PASSWORD?.trim() || "";
+const database = process.env.DB_NAME?.trim() || "pacientes_db";
+const port = process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306;
+
+const pool = mysql.createPool({
+  host,
+  user,
+  password,
+  database,
+  port,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
 });
 
-connection.connect((err) => {
+pool.getConnection((err, connection) => {
   if (err) {
-    console.log("Error al conectar la bd", err);
+    if (err.code === "ER_BAD_DB_ERROR") {
+      console.error(
+        `Error al conectar la bd: la base de datos "${database}" no existe.`
+      );
+    } else {
+      console.error("Error al conectar la bd", err);
+    }
     return;
   }
 
-  console.log("Conexion exitosa .....");
+  console.log("Conexión exitosa a MySQL");
+  connection.release();
 });
 
-module.exports = connection;
+module.exports = pool;
