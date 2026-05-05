@@ -9,10 +9,10 @@ function App() {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [titulo, setTitulo] = useState("");
-  const [areaAcademica, setAreaAcademica] = useState("");
-  const [dedicacion, setDedicacion] = useState("");
-  const [aniosExperiencia, setAniosExperiencia] = useState(0);
+  const [identificacion, setIdentificacion] = useState("");
+  const [especialidad, setEspecialidad] = useState("");
+  const [eps, setEps] = useState("");
+  const [edad, setEdad] = useState(0);
 
   const [registros, setRegistros] = useState([]);
 
@@ -24,7 +24,7 @@ function App() {
 
   const cargarDocentes = async () => {
     try {
-      const response = await fetch("http://localhost:3001/docentes");
+      const response = await fetch("http://localhost:3001/pacientes");
       const data = await response.json();
       setRegistros(data);
     } catch (error) {
@@ -36,10 +36,10 @@ function App() {
     setNombre("");
     setCorreo("");
     setTelefono("");
-    setTitulo("");
-    setAreaAcademica("");
-    setDedicacion("");
-    setAniosExperiencia(0);
+    setIdentificacion("");
+    setEspecialidad("");
+    setEps("");
+    setEdad(0);
   };
 
   const registrarDatos = async (e) => {
@@ -49,10 +49,10 @@ function App() {
       nombre,
       correo,
       telefono,
-      titulo,
-      area_academica: areaAcademica,
-      dedicacion,
-      anios_experiencia: aniosExperiencia,
+      identificacion,
+      especialidad,
+      eps,
+      edad,
     };
 
     if (editIndex !== null) {
@@ -60,7 +60,7 @@ function App() {
       try {
         const docente = registros[editIndex];
         const response = await fetch(
-          `http://localhost:3001/docentes/${docente.id}`,
+          `http://localhost:3001/pacientes/${docente.id}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -75,10 +75,10 @@ function App() {
             nombre,
             correo,
             telefono,
-            titulo,
-            area_academica: areaAcademica,
-            dedicacion,
-            anios_experiencia: aniosExperiencia,
+            identificacion,
+            especialidad,
+            eps,
+            edad,
           };
           setRegistros(nuevosRegistros);
           setEditIndex(null);
@@ -93,7 +93,7 @@ function App() {
     } else {
       try {
         //camino de GUARDAR
-        const response = await fetch("http://localhost:3001/docentes", {
+        const response = await fetch("http://localhost:3001/pacientes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
@@ -118,7 +118,7 @@ function App() {
 
     try {
       const response = await fetch(
-        `http://localhost:3001/docentes/${docente.id}`,
+        `http://localhost:3001/pacientes/${docente.id}`,
         {
           method: "DELETE",
         },
@@ -144,10 +144,10 @@ function App() {
     setNombre(reg.nombre);
     setCorreo(reg.correo);
     setTelefono(reg.telefono);
-    setTitulo(reg.titulo);
-    setAreaAcademica(reg.area_academica);
-    setDedicacion(reg.dedicacion);
-    setAniosExperiencia(reg.anios_experiencia);
+    setIdentificacion(reg.identificacion);
+    setEspecialidad(reg.especialidad);
+    setEps(reg.eps);
+    setEdad(reg.edad);
     setEditIndex(idx);
   };
 
@@ -197,8 +197,8 @@ function App() {
           Cedula Iden:tificacion:
           <input
             type="text"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
+            value={identificacion}
+            onChange={(e) => setIdentificacion(e.target.value)}
             placeholder="Ej. Doctorado, Maestría, Especialización"
           />
         </label>
@@ -206,28 +206,27 @@ function App() {
           Especialidad:
           <input
             type="text"
-            value={areaAcademica}
-            onChange={(e) => setAreaAcademica(e.target.value)}
+            value={especialidad}
+            onChange={(e) => setEspecialidad(e.target.value)}
             placeholder="Ej. Ingeniería de Software, Matemáticas"
           />
         </label>
         <label>
-          Dedicación:
+          EPS:
           <input
             type="text"
-            value={dedicacion}
-            onChange={(e) => setDedicacion(e.target.value)}
-            placeholder="Tiempo completo, medio tiempo, cátedra"
+            value={eps}
+            onChange={(e) => setEps(e.target.value)}
+            placeholder="Ej. Sura, Sanitas, Nueva EPS"
           />
         </label>
         <label>
-          Paciente:
+          Edad:
           <input
+            value={edad}
+            onChange={(e) => setEdad(Number(e.target.value))}
             type="number"
             min={0}
-            value={aniosExperiencia}
-            // e.target.value es siempre string; Number() lo convierte para guardar número en el estado (coherente con el backend)
-            onChange={(e) => setAniosExperiencia(Number(e.target.value))}
           />
         </label>
 
@@ -244,11 +243,10 @@ function App() {
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Teléfono</th>
-                <th>Título</th>
-                <th>Área académica</th>
-                <th>Dedicación</th>
-                <th>Años doc.</th>
-                <th>Acciones</th>
+                <th>Identificación</th>
+                <th>Especialidad</th>
+                <th>EPS</th>
+                <th>Edad</th>
               </tr>
             </thead>
             <tbody>
@@ -257,10 +255,10 @@ function App() {
                   <td>{reg.nombre}</td>
                   <td>{reg.correo}</td>
                   <td>{reg.telefono}</td>
-                  <td>{reg.titulo}</td>
-                  <td>{reg.area_academica}</td>
-                  <td>{reg.dedicacion}</td>
-                  <td>{reg.anios_experiencia}</td>
+                  <td>{reg.identificacion}</td>
+                  <td>{reg.especialidad}</td>
+                  <td>{reg.eps}</td>
+                  <td>{reg.edad}</td>
                   <td>
                     <button
                       className="btn-editar"
