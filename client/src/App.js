@@ -2,7 +2,7 @@ import "./App.css";
 import LandingPage from "./pages/OtraPage";
 import PacientesPage from "./pages/PacientesPage";
 import { useState } from "react";
-import logo from "./logo192.png";
+import logo from "./assets/logoSaludYa.png";
 
 function App() {
   const [route, setRoute] = useState("landing"); // 'landing' | 'pacientes'

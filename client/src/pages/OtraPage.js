@@ -1,11 +1,11 @@
-import logo from "../logo192.png";
-
+import logo from "../assets/logoSaludYa.png";
 export default function LandingPage({ navigate }) {
   return (
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-panel auth-panel--form">
           <div className="auth-header centered">
+            
             <h1 className="auth-main-title">INICIAR SESIÓN</h1>
             <p className="auth-description">
               Accede a tu cuenta para gestionar pacientes, consultas y tu agenda médica.
