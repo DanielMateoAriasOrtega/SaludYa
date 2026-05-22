@@ -264,7 +264,7 @@ button {
 }
 .data-table thead th,
 .tabla-registros thead th {
-  background: #f8fafc;
+  background: #E8F8FA;
   color: #0f172a;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -282,6 +282,10 @@ button {
 .btn-eliminar {
   padding: 8px 12px;
   font-size: 13px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #C0392B;
 }
 .data-empty {
   padding: 36px 20px;
