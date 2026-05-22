@@ -127,7 +127,7 @@ export default function PacientesPage({ navigate }) {
   };
   return (
     <div className="auth-page">
-      <div className="auth-card">
+      <div className="auth-card auth-card--stacked">
         <div className="auth-panel">
           <div className="auth-header">
             <h1 className="auth-main-title">Pacientes</h1>
