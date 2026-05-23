@@ -1,5 +1,5 @@
 import "./App.css";
-import LandingPage from "./pages/OtraPage";
+import LandingPage from "./pages/InicioPage";
 import PacientesPage from "./pages/PacientesPage";
 import { useState } from "react";
 import logo from "./assets/logoSaludYa.png";
