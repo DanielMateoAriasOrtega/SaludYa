@@ -1,11 +1,12 @@
 import "./App.css";
 import LandingPage from "./pages/InicioPage";
+import CreateAccountPage from "./pages/CreateAccountPage";
 import PacientesPage from "./pages/PacientesPage";
 import { useState } from "react";
-import logo from "./assets/logoSaludYa.png";
+import logo from "./assets/Logo.png";
 
 function App() {
-  const [route, setRoute] = useState("landing"); // 'landing' | 'pacientes'
+  const [route, setRoute] = useState("landing"); // 'landing' | 'register' | 'pacientes'
 
   function navigateTo(name) {
     setRoute(name);
@@ -18,7 +19,7 @@ function App() {
         <div className="topbar-inner">
           <div className="brand">
             <img src={logo} alt="SaludYa" className="topbar-logo" />
-            <span className="brand-title">SaludYa</span>
+            <span className="brand-title"></span>
           </div>
           <nav className="page-nav" aria-label="Principal">
             <button
@@ -38,6 +39,7 @@ function App() {
       </header>
 
       {route === "landing" && <LandingPage navigate={navigateTo} />}
+      {route === "register" && <CreateAccountPage navigate={navigateTo} />}
       {route === "pacientes" && <PacientesPage navigate={navigateTo} />}
     </div>
   );

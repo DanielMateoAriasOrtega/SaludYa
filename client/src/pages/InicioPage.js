@@ -1,20 +1,16 @@
-import logo from "../assets/logoSaludYa.png";
+import logo from "../assets/Logo.png";
 export default function LandingPage({ navigate }) {
   return (
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-panel auth-panel--form">
           <div className="auth-header centered">
-            
             <h1 className="auth-main-title">INICIAR SESIÓN</h1>
-            <p className="auth-description">
-            </p>
+            <p className="auth-description"></p>
           </div>
 
           <form className="auth-form" onSubmit={(e) => e.preventDefault()}>
             <div>
-              <label className="auth-label" htmlFor="user-input">
-              </label>
               <input
                 id="user-input"
                 type="text"
@@ -25,9 +21,6 @@ export default function LandingPage({ navigate }) {
             </div>
 
             <div>
-              <label className="auth-label" htmlFor="password-input">
-                Contraseña
-              </label>
               <input
                 id="password-input"
                 type="password"
@@ -42,7 +35,8 @@ export default function LandingPage({ navigate }) {
                 <input type="radio" name="role" value="afiliado" /> Afiliado
               </label>
               <label>
-                <input type="radio" name="role" value="profesional" /> Profesional
+                <input type="radio" name="role" value="profesional" />{" "}
+                Profesional
               </label>
             </div>
 
@@ -67,16 +61,19 @@ export default function LandingPage({ navigate }) {
 
         <div className="auth-panel auth-panel--welcome">
           <img src={logo} alt="SaludYa logo" className="welcome-logo" />
-          <h2>Bienvenido a SaludYa</h2>
-          <p className="welcome-text">
-            Crea tu cuenta para acceder a funciones avanzadas y mantener toda la información de pacientes en un solo lugar.
-          </p>
+          <h1 className="welcome-title">
+            Bienvenido a
+            <br />
+            SaludYa
+          </h1>
+
+          <p className="welcome-text">¿Quieres crear una cuenta?</p>
           <button
             type="button"
             className="welcome-button"
-            onClick={() => navigate && navigate("pacientes")}
+            onClick={() => navigate && navigate("register")}
           >
-            Crear cuenta
+            CREAR CUENTA
           </button>
         </div>
       </div>
