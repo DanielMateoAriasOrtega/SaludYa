@@ -179,9 +179,11 @@ app.delete("/pacientes/:id", (req, res) => {
    SERVIDOR
 ========================================= */
 
+const PORT = process.env.PORT || 3001;
+
 if (require.main === module) {
-  app.listen(3001, () => {
-    console.log("Servidor backend corriendo en puerto 3001");
+  app.listen(PORT, () => {
+    console.log(`Servidor backend corriendo en puerto ${PORT}`);
   });
 }
 
