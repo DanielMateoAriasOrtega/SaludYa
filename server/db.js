@@ -2,12 +2,14 @@ require("dotenv").config();
 
 const mysql = require("mysql2");
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "pacientes_db",
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
+
+module.exports = db;
 
 // Avoid opening a real DB connection during tests to prevent leaked handles
 if (process.env.NODE_ENV !== "test") {
