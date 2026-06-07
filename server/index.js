@@ -9,6 +9,17 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.status(200).json({
+    proyecto: "SaludYa API",
+    version: "1.0.0",
+    estado: "Activo"
+  });
+});
+
 /* =========================================
    RUTA 1 - OBTENER TODOS LOS PACIENTES
 ========================================= */
