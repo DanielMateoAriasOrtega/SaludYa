@@ -1,6 +1,6 @@
 import "./App.css";
 import LandingPage from "./pages/InicioPage";
-import CreateAccountPage from "./pages/CreateAccountPage";
+import PaginaCrearCuenta from "./pages/PaginaCrearCuenta";
 import PacientesPage from "./pages/PacientesPage";
 import { useState } from "react";
 import logo from "./assets/Logo.png";
@@ -39,7 +39,7 @@ function App() {
       </header>
 
       {route === "landing" && <LandingPage navigate={navigateTo} />}
-      {route === "register" && <CreateAccountPage navigate={navigateTo} />}
+      {route === "register" && <PaginaCrearCuenta navigate={navigateTo} />}
       {route === "pacientes" && <PacientesPage navigate={navigateTo} />}
     </div>
   );

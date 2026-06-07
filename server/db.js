@@ -9,13 +9,16 @@ const connection = mysql.createConnection({
   database: process.env.DB_NAME || "pacientes_db",
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.log("Error al conectar la bd", err);
-    return;
-  }
+// Avoid opening a real DB connection during tests to prevent leaked handles
+if (process.env.NODE_ENV !== "test") {
+  connection.connect((err) => {
+    if (err) {
+      console.log("Error al conectar la bd", err);
+      return;
+    }
 
-  console.log("Conexion exitosa .....");
-});
+    console.log("Conexion exitosa .....");
+  });
+}
 
 module.exports = connection;

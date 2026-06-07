@@ -56,7 +56,10 @@ app.get("/pacientes/:id", (req, res) => {
 /* =========================================
    RUTA 3 - REGISTRAR PACIENTE
 ========================================= */
-
+/**
+ * @route POST /pacientes
+ * @description Registra un nuevo paciente
+ */
 app.post("/pacientes", (req, res) => {
   const { nombre, correo, telefono, identificacion, especialidad, eps, edad } =
     req.body;
@@ -176,6 +179,10 @@ app.delete("/pacientes/:id", (req, res) => {
    SERVIDOR
 ========================================= */
 
-app.listen(3001, () => {
-  console.log("Servidor backend corriendo en puerto 3001");
-});
+if (require.main === module) {
+  app.listen(3001, () => {
+    console.log("Servidor backend corriendo en puerto 3001");
+  });
+}
+
+module.exports = app;
