@@ -13,9 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.status(200).json({
+  res.json({
     proyecto: "SaludYa API",
-    version: "1.0.0",
     estado: "Activo"
   });
 });
