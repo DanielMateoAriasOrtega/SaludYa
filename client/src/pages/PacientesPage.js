@@ -193,7 +193,7 @@ export default function PacientesPage({ navigate }) {
         <div className="auth-panel auth-panel--welcome">
           <div className="auth-header">
             <h2 className="auth-main-title">Pacientes registrados</h2>
-            <p className="auth-description">Consulta, edita o elimina los pacientes activos en el sistema.</p>
+            <p className="auth-description">Consultar, editar o eliminar los pacientes activos en el sistema.</p>
           </div>
           <div className="data-table-wrapper tabla-container">
             {registros.length === 0 ? (
