@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1780793970743" clover="3.2.0">
-  <project timestamp="1780793970743" name="All files">
-    <metrics statements="59" coveredstatements="51" conditionals="38" coveredconditionals="29" methods="12" coveredmethods="10" elements="109" coveredelements="90" complexity="0" loc="59" ncloc="59" packages="1" files="2" classes="2"/>
+<coverage generated="1780801723530" clover="3.2.0">
+  <project timestamp="1780801723530" name="All files">
+    <metrics statements="59" coveredstatements="51" conditionals="40" coveredconditionals="30" methods="12" coveredmethods="10" elements="111" coveredelements="91" complexity="0" loc="59" ncloc="59" packages="1" files="2" classes="2"/>
     <file name="db.js" path="C:\Users\daniel\Documents\GitHub\SaludYa\server\db.js">
       <metrics statements="10" coveredstatements="5" conditionals="12" coveredconditionals="5" methods="1" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
       <line num="3" count="1" type="stmt"/>
       <line num="5" count="1" type="stmt"/>
-      <line num="13" count="1" type="cond" truecount="1" falsecount="1"/>
-      <line num="14" count="0" type="stmt"/>
-      <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="12" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="13" count="0" type="stmt"/>
+      <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="15" count="0" type="stmt"/>
       <line num="16" count="0" type="stmt"/>
-      <line num="17" count="0" type="stmt"/>
-      <line num="20" count="0" type="stmt"/>
-      <line num="24" count="1" type="stmt"/>
+      <line num="19" count="0" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
     </file>
     <file name="index.js" path="C:\Users\daniel\Documents\GitHub\SaludYa\server\index.js">
-      <metrics statements="49" coveredstatements="46" conditionals="26" coveredconditionals="24" methods="11" coveredmethods="10"/>
+      <metrics statements="49" coveredstatements="46" conditionals="28" coveredconditionals="25" methods="11" coveredmethods="10"/>
       <line num="3" count="2" type="stmt"/>
       <line num="4" count="2" type="stmt"/>
       <line num="5" count="2" type="stmt"/>
@@ -62,7 +62,7 @@
       <line num="163" count="2" type="cond" truecount="2" falsecount="0"/>
       <line num="164" count="1" type="stmt"/>
       <line num="169" count="1" type="stmt"/>
-      <line num="179" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="179" count="2" type="cond" truecount="2" falsecount="2"/>
       <line num="180" count="0" type="stmt"/>
       <line num="181" count="0" type="stmt"/>
       <line num="185" count="2" type="stmt"/>
