@@ -62,7 +62,7 @@ export default function LandingPage({ navigate }) {
         <div className="auth-panel auth-panel--welcome">
           <img src={logo} alt="SaludYa logo" className="welcome-logo" />
           <h1 className="welcome-title">
-            Bienvenido a
+            Bienvenidos a
             <br />
             SaludYa
           </h1>
